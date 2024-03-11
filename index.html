@@ -4,27 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blackjack</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <script defer src="main.js"></script>
+
 </head>
 <body>
     <head><h1>WSOB Final Table</h1></head>
     <section class="main">
         <div class="dealer">
             <div class="dealer-name">D. Jonson</div>
-            <div class="dealer-image"></div>
+            <div class="dealer-image">
+                <img src="pics/dealer.png" alt="dealer's image">
+            </div>
             <div id="dealer-stake">1000</div>
         </div>
         <div class="gameboard">
             <div class="info">
-                <div id="timer">00:26</div>
-                <div id="stake-level">$20</div>
+                <div class="timer">00:26</div>
+                <div class="stake-level">
+                    Next Level:<span id="next-level-stake">50</span>
+                </div>
             </div>
             <div class="card-table">
                 <div id="dealer-hand">56</div>
                 <div id="dealer-dealt-cards">234</div>
-                <div id="pot-amount">$10</div>
                 <div id="winner">dealer</div>
+                <div id="pot-amount">$10</div>
                 <div id="player-hand">56</div>
                 <div id="player-dealt-cards">Q</div>
             </div>
@@ -46,12 +54,14 @@
         </div>
         <div class="player">
             <div class="player-name">E. Fargo</div>
-            <div class="player-image"></div>
+            <div class="player-image">
+                <img src="pics/player.png" alt="player's image">
+            </div>
             <div id="player-stake">1000</div>
         </div>
     </section>
     <footer>
-        <span>credits::</span>
+        <span>credits:</span>
     </footer>
 </body>
 </html>
