@@ -10,7 +10,7 @@ body {
     font-style: normal;
     background-color: #004052;
     color: white;
-    z-index: -2;
+
 }
 
 h1 {
@@ -26,32 +26,34 @@ h1 {
     grid-template-columns: auto 750px auto;
     grid-template-rows: auto;
     grid-template-areas: 
-    "dealer card-table player"
+    "dealer gameboard player"
 }
 /* /Gird not apply with the player element  */
 
 @media only screen and (max-width: 768px) {
     .main {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr, 1fr;
-        grid-template-areas: 
-        "card-table card-table"
-        "dealer player";
+        grid-template-columns: 50% 50%;
+        /* grid-template-rows: ; */
+        grid-template-areas:
+            "gameboard gameboard"
+            "dealer player";
     }
-  }
+}
 
+.gameboard{
+    grid-area: gameboard;
+}
 .dealer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     grid-area: dealer;
     background-color: #e5e5e5;
-    opacity: 0.4;
+    opacity: 0.8;
     width: 200px;
     height: auto;
     border-radius: 10px;
-    z-index: -1;
 }
 
 .dealer-name {
@@ -81,11 +83,10 @@ h1 {
     justify-content: space-between;
     grid-area: player;
     background-color: #e5e5e5;
-    opacity: 0.4;
+    opacity: 0.8;
     width: 200px;
     height: auto;
     border-radius: 10px;
-    z-index: -1;
 }
 
 img {
@@ -102,30 +103,24 @@ img {
 
 .timer {
     background-color: #e5e5e5;
-    width: 300px;
+    width: 40%;
     height: 80px;
     border-radius: 10px;
     box-shadow: 0 0 10px 5px rgba(187, 10, 10, 0.3);
-    opacity: 0.4;
+    opacity: 0.8;
     margin: 20px auto;
 }
 .stake-level {
     background-color: #e5e5e5;
-    width: 300px;
+    width: 40%;
     height: 80px;
     border-radius: 10px;
     box-shadow: 0 0 10px 5px rgba(187, 10, 10, 0.3);
-    opacity: 0.4;
+    opacity: 0.8;
     margin: 20px auto;
 }
 
-.card-table{
-    background-image: url("pics/cardtable.png");
-    width: 750px;
-    height: 500px;
-    border-radius: 30px;
-    box-shadow: 0 0 10px 5px rgba(187, 10, 10, 0.3)
-}
+
 
 .control-desk {
     display: flex;
@@ -135,7 +130,7 @@ img {
     height: 80px;
     border-radius: 10px;
     box-shadow: 0 0 10px 5px rgba(187, 10, 10, 0.3);
-    opacity: 0.4;
+    opacity: 0.8;
     margin: 20px auto;
 }
 
@@ -170,15 +165,25 @@ button:disabled {
   cursor: not-allowed;
 }
 
+
 .card-table {
+    background-image: url("pics/cardtable.png");
+    width: 750px;
+    height: 500px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px 5px rgba(187, 10, 10, 0.3);
+
     display: grid;
+    
     grid-template-columns: 2fr 1fr 2fr;
     grid-template-rows: auto;
     justify-content: space-between;
     align-items: center;
+    
     grid-template-areas: 
       "dealer-hand  winner player-hand "
       "dealer-dealt-cards pot-amount player-dealt-cards";
+    text-align: center;
   }
 
 #dealer-hand {
