@@ -179,7 +179,6 @@ button:disabled {
     grid-template-rows: auto;
     justify-content: space-between;
     align-items: center;
-    
     grid-template-areas: 
       "dealer-hand  winner player-hand "
       "dealer-dealt-cards pot-amount player-dealt-cards";
