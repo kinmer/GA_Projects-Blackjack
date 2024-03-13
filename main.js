@@ -33,6 +33,7 @@ const hiddenCard = document.getElementById('hidden');
 // const split = document.getElementById('split');
 
 /*----- functions -----*/
+// Process Function
 const originalDeck = () => {
     suits.forEach(function(suit) {
         values.forEach((value) => {
@@ -51,16 +52,6 @@ const shuffledDeck = () => {
     }
     return deck;
 };
-
-const startGame = () => {
-    dealStartingHandToPlayer();
-    dealStartingHandToDealer();
-    //not defined checkFirstRound();
-    hintCards();
-    // checkSecondRound
-    standCards();
-    // checkFinalResult
-}
 
 const dealStartingHandToPlayer = () => {
     for(let i = 0; i < 2; i++) {
@@ -85,6 +76,71 @@ const dealStartingHandToDealer = () => {
     dealerAceCount += checkAce(card);
 }
 
+const checkFirstRound = () => {
+    if (playerPoints === 21 && playerPoints === dealerPoints) {
+        winningMsg.innerHTML = `<p>Tie<p>`;
+        startGame();
+    } else if (playerPoints === 21) {
+        winningMsg.innerHTML = `<p>Player Win!<p>`;
+        //stake change
+        startGame();
+    }else return;
+}
+
+const hintCards = () => {
+    if (!canHint){
+        return;
+    }
+    let cardImg = document.createElement('img');
+    let card = deck.pop();
+    cardImg.src = `./cards/${card}.png`;
+    playerHand.append(cardImg);
+    playerPoints += getValue(card);
+    playerAceCount += checkAce(card);
+    if (reduceAce(playerPoints, playerAceCount) > 21) {
+        canHint = false;
+    }
+}
+
+const checkSecondRound = () => {
+    if (playerPoints > 21) {
+        winningMsg.innerHTML = `<p>Dealer Win!<p>`;
+        //stake change
+        startGame();
+    } return;
+}
+
+const standCards = () => {
+    canHint === false;
+    hiddenCard.src = `./card/${hidden}.png`;
+    while (dealerPoints < 17) {
+        let cardImg = document.createElement('img');
+        let card = deck.pop();
+        cardImg.src = `./cards/${card}.png`;
+        dealerHand.append(cardImg);
+        dealerPoints += getValue(card);
+        //Where to add this function
+        reduceDealerAce();
+        dealerAceCount += checkAce(card);
+    }
+};
+
+const checkFinalRound = () => {
+    if (playerPoints === dealerPoints) {
+        winningMsg.innerHTML = `<p>Tie<p>`;
+        startGame();
+    } else if (playerPoints > dealerPoints) {
+        winningMsg.innerHTML = `<p>Player Win!<p>`;
+        //stake change
+        startGame();
+    } else if (playerPoints < dealerPoints) {
+        winningMsg.innerHTML = `<p>Dealer Win!<p>`;
+        //stake change
+        startGame();
+    }
+}
+
+//Functioanl Function
 const getValue = (card) => {
     let data = card.split('-');
     let value = data[0];
@@ -123,35 +179,15 @@ const reduceDealerAce = (dealerPoints, dealerAceCount) => {
     return dealerPoints;
 }
 
-const hintCards = () => {
-    if (!canHint){
-        return;
-    }
-    let cardImg = document.createElement('img');
-    let card = deck.pop();
-    cardImg.src = `./cards/${card}.png`;
-    playerHand.append(cardImg);
-    playerPoints += getValue(card);
-    playerAceCount += checkAce(card);
-    if (reduceAce(playerPoints, playerAceCount) > 21) {
-        canHint = false;
-    }
+const startGame = () => {
+    dealStartingHandToPlayer();
+    dealStartingHandToDealer();
+    checkFirstRound();
+    hintCards();
+    checkSecondRound();
+    standCards();
+    checkFinalResult();
 }
-
-const standCards = () => {
-    canHint === false;
-    hiddenCard.src = `./card/${hidden}.png`;
-    while (dealerPoints < 17) {
-        let cardImg = document.createElement('img');
-        let card = deck.pop();
-        cardImg.src = `./cards/${card}.png`;
-        dealerHand.append(cardImg);
-        dealerPoints += getValue(card);
-        //Where to add this function
-        reduceDealerAce();
-        dealerAceCount += checkAce(card);
-    }
-};
 
 /*----- event listeners -----*/
 hint.addEventListener("click", hintCards);
