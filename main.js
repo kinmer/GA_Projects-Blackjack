@@ -10,6 +10,8 @@ let deck = [];
 let canHint = true;
 let playerPoints = 1000;
 let dealerPoints = 1000;
+let dealerHandValue = 0;
+let playerHandvalue = 0;
 
 /*----- cached elements  -----*/
 const timer = document.getElementById('timer');
@@ -54,35 +56,38 @@ const shuffledDeck = () => {
 };
 
 const dealStartingHandToPlayer = () => {
+
     for(let i = 0; i < 2; i++) {
         let cardImg = document.createElement('img');
         let card = deck.pop();
         cardImg.src = `./cards/${card}.png`;
         playerHand.append(cardImg);
-        playerPoints += getValue(card);
+        playerHandvalue += getValue(card);
         playerAceCount += checkAce(card);
     }
 }
 
 const dealStartingHandToDealer = () => {
     hidden = deck.pop();
-    dealerPoints += getValue(hidden);
+    dealerHandValue += getValue(hidden);
     dealerAceCount += checkAce(hidden);
     let cardImg = document.createElement('img');
     let card = deck.pop();
     cardImg.src = `./cards/${card}.png`;
     dealerHand.append(cardImg);
-    dealerPoints += getValue(card);
+    dealerHandValue += getValue(card);
     dealerAceCount += checkAce(card);
 }
 
 const checkFirstRound = () => {
-    if (playerPoints === 21 && playerPoints === dealerPoints) {
+    if (playerHandvalue === 21 && playerHandvalue === dealerHandValue) {
         winningMsg.innerHTML = `<p>Tie<p>`;
+        resetHandsAndHandValue();
         startGame();
-    } else if (playerPoints === 21) {
+    } else if (playerHandvalue === 21) {
         winningMsg.innerHTML = `<p>Player Win!<p>`;
         //stake change
+        resetHandsAndHandValue
         startGame();
     }else return;
 }
@@ -94,18 +99,21 @@ const hintCards = () => {
     let cardImg = document.createElement('img');
     let card = deck.pop();
     cardImg.src = `./cards/${card}.png`;
+    console.log(cardImg);
     playerHand.append(cardImg);
-    playerPoints += getValue(card);
+    playerHandvalue += getValue(card);
     playerAceCount += checkAce(card);
-    if (reduceAce(playerPoints, playerAceCount) > 21) {
+    if (reduceAce(playerHandvalue, playerAceCount) > 21) {
         canHint = false;
     }
 }
 
 const checkSecondRound = () => {
-    if (playerPoints > 21) {
+    console.log('check second')
+    if (playerHandvalue > 21) {
         winningMsg.innerHTML = `<p>Dealer Win!<p>`;
         //stake change
+        resetHandsAndHandValue();
         startGame();
     } return;
 }
@@ -113,12 +121,12 @@ const checkSecondRound = () => {
 const standCards = () => {
     canHint === false;
     hiddenCard.src = `./card/${hidden}.png`;
-    while (dealerPoints < 17) {
+    while (dealerHandValue < 17) {
         let cardImg = document.createElement('img');
         let card = deck.pop();
         cardImg.src = `./cards/${card}.png`;
         dealerHand.append(cardImg);
-        dealerPoints += getValue(card);
+        dealerHandValue += getValue(card);
         //Where to add this function
         reduceDealerAce();
         dealerAceCount += checkAce(card);
@@ -126,17 +134,17 @@ const standCards = () => {
 };
 
 const checkFinalRound = () => {
-    if (playerPoints === dealerPoints) {
+    if (playerHandvalue === dealerHandValue) {
         winningMsg.innerHTML = `<p>Tie<p>`;
-        startGame();
-    } else if (playerPoints > dealerPoints) {
+        // startGame();
+    } else if (playerHandvalue > dealerHandValue) {
         winningMsg.innerHTML = `<p>Player Win!<p>`;
         //stake change
-        startGame();
-    } else if (playerPoints < dealerPoints) {
+        // startGame();
+    } else if (playerHandvalue < dealerHandValue) {
         winningMsg.innerHTML = `<p>Dealer Win!<p>`;
         //stake change
-        startGame();
+        // startGame();
     }
 }
 
@@ -164,29 +172,38 @@ const checkAce = (card) => {
     } else return 0;
 };
 
-const reduceAce = (playerPoints, playerAceCount) => {
-    while (playerPoints > 21 && playerAceCount > 0) {
-        playerPoints -= 10;
+const reduceAce = (playerHandvalue, playerAceCount) => {
+    while (playerHandvalue > 21 && playerAceCount > 0) {
+        playerHandvalue -= 10;
         playerAceCount -= 1;
     }
-    return playerPoints;
+    return playerHandvalue;
 }
-const reduceDealerAce = (dealerPoints, dealerAceCount) => {
-    while (dealerPoints > 21 && dealerAceCount > 0) {
-        dealerPoints -= 10;
-        dealerPoints -= 1;
+const reduceDealerAce = (dealerHandValue, dealerAceCount) => {
+    while (dealerHandValue > 21 && dealerAceCount > 0) {
+        dealerHandValue -= 10;
+        dealerHandValue -= 1;
     }
-    return dealerPoints;
+    return dealerHandValue;
+}
+
+const resetHandsAndHandValue = () => {
+    // winningMsg.innerHTML = '';
+    dealerHandValue = 0;
+    playerHandvalue = 0;
+    // playerHand.innerHTML = '';
+    // dealerHand.innerHTML = '';
 }
 
 const startGame = () => {
+    
     dealStartingHandToPlayer();
     dealStartingHandToDealer();
     checkFirstRound();
-    hintCards();
+    // hintCards();
     checkSecondRound();
-    standCards();
-    checkFinalResult();
+    // // standCards();
+    // checkFinalRound();
 }
 
 /*----- event listeners -----*/
