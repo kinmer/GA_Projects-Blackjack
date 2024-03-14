@@ -24,7 +24,7 @@ const potAmount = document.getElementById('pot-amount');
 const dealerSum = document.getElementById('dealer-sum');
 const playerSum = document.getElementById('player-sum');
 
-const double = document.getElementById('double');
+const nextHand = document.getElementById('next-hand');
 const hint = document.getElementById('hint');
 const stand = document.getElementById('stand');
 
@@ -36,6 +36,15 @@ const hiddenCard = document.getElementById('hidden');
 
 /*----- functions -----*/
 // Process Function
+
+const resetHandsAndHandValue = () => {
+    winningMsg.innerHTML = '';
+    dealerHandValue = 0;
+    playerHandvalue = 0;
+    playerHand.innerHTML = '';
+    dealerHand.innerHTML = '';
+}
+
 const originalDeck = () => {
     suits.forEach(function(suit) {
         values.forEach((value) => {
@@ -56,7 +65,7 @@ const shuffledDeck = () => {
 };
 
 const dealStartingHandToPlayer = () => {
-
+    playerHandvalue = 0;
     for(let i = 0; i < 2; i++) {
         let cardImg = document.createElement('img');
         let card = deck.pop();
@@ -68,6 +77,8 @@ const dealStartingHandToPlayer = () => {
 }
 
 const dealStartingHandToDealer = () => {
+    
+    dealerHandValue = 0;
     hidden = deck.pop();
     dealerHandValue += getValue(hidden);
     dealerAceCount += checkAce(hidden);
@@ -83,13 +94,16 @@ const checkFirstRound = () => {
     if (playerHandvalue === 21 && playerHandvalue === dealerHandValue) {
         winningMsg.innerHTML = `<p>Tie<p>`;
         resetHandsAndHandValue();
-        startGame();
+        setTimeout(checkSecondRound, 2000);
+        // startGame();
     } else if (playerHandvalue === 21) {
         winningMsg.innerHTML = `<p>Player Win!<p>`;
         //stake change
-        resetHandsAndHandValue
-        startGame();
-    }else return;
+
+        resetHandsAndHandValue();
+        setTimeout(checkSecondRound, 2000);
+        // startGame();
+    } 
 }
 
 const hintCards = () => {
@@ -105,7 +119,9 @@ const hintCards = () => {
     playerAceCount += checkAce(card);
     if (reduceAce(playerHandvalue, playerAceCount) > 21) {
         canHint = false;
+        checkSecondRound();
     }
+
 }
 
 const checkSecondRound = () => {
@@ -113,8 +129,8 @@ const checkSecondRound = () => {
     if (playerHandvalue > 21) {
         winningMsg.innerHTML = `<p>Dealer Win!<p>`;
         //stake change
-        resetHandsAndHandValue();
-        startGame();
+        // resetHandsAndHandValue();
+        // startGame();
     } return;
 }
 
@@ -187,21 +203,13 @@ const reduceDealerAce = (dealerHandValue, dealerAceCount) => {
     return dealerHandValue;
 }
 
-const resetHandsAndHandValue = () => {
-    // winningMsg.innerHTML = '';
-    dealerHandValue = 0;
-    playerHandvalue = 0;
-    // playerHand.innerHTML = '';
-    // dealerHand.innerHTML = '';
-}
-
 const startGame = () => {
-    
+    resetHandsAndHandValue();
     dealStartingHandToPlayer();
     dealStartingHandToDealer();
     checkFirstRound();
     // hintCards();
-    checkSecondRound();
+    // checkSecondRound();
     // // standCards();
     // checkFinalRound();
 }
@@ -209,7 +217,7 @@ const startGame = () => {
 /*----- event listeners -----*/
 hint.addEventListener("click", hintCards);
 stand.addEventListener("click", standCards);
-
+nextHand.addEventListener("click", startGame);
 window.onload = function() {
     originalDeck();
     shuffledDeck();
