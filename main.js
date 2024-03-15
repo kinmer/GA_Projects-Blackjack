@@ -158,6 +158,7 @@ const checkFirstRound = () => {
 const checkSecondRound = () => {
     if (playerHandvalue > 21) {
         winningMsg.innerHTML = `<p>Dealer Win!<p>`;
+        //stake change
         setTimeout(startGame, 3000)
     } 
 }
