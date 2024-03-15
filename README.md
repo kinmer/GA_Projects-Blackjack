@@ -81,6 +81,6 @@ If a player chooses to stop dealing<button>Stand</button>, it goes to the dealer
 1. The game ends when one of the players has zero coins.
 2. If the player wins, congratulatory content appears.
 3. If the player loses, the game ends and the player's name goes on the loser's list.
-###### credits:Kenny Yip Coding
+###### credits:Kenny Yip Coding, CSS Scan.
 
 
