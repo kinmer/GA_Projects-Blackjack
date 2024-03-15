@@ -4,6 +4,8 @@
 #### By: Yong Zhang （*A storyteller endowed with an array of weapons.*）
 [Website]   [GitHub]  [LinkedIn]
 
+Link: [https://best-blackjack-game.surge.sh/]
+
 ----
 ## Description 
 This is an interactive web game crafted using three fundamental programming languages, providing players with an engaging experience.
@@ -80,7 +82,6 @@ If a player chooses to stop dealing<button>Stand</button>, it goes to the dealer
 2. If the player wins, congratulatory content appears.
 3. If the player loses, the game ends and the player's name goes on the loser's list.
 
+###### credits:Kenny Yip Coding
 
 
-
-https://best-blackjack-game.surge.sh/

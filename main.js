@@ -64,6 +64,7 @@ const reduceAce = (playerHandvalue, playerAceCount) => {
     }
     return playerHandvalue;
 }
+
 const reduceDealerAce = (dealerHandValue, dealerAceCount) => {
     while (dealerHandValue > 21 && dealerAceCount > 0) {
         dealerHandValue -= 10;
@@ -130,6 +131,7 @@ const dealStartingHandToDealer = () => {
     dealerHandValue += getValue(card);
     dealerAceCount += checkAce(card);
 }
+
 const dealStartingHandToPlayer = () => {
     playerHandvalue = 0;
     for(let i = 0; i < 2; i++) {
@@ -189,7 +191,7 @@ const standCards = () => {
         cardImg.src = `./cards/${card}.png`;
         dealerHand.append(cardImg);
         dealerHandValue += getValue(card);
-        //Where to add this function
+        //Where to add this reduceDealerAce function
         reduceDealerAce(dealerHandValue, dealerAceCount);
         dealerAceCount += checkAce(card);
     }
