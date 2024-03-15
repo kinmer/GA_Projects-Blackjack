@@ -40,7 +40,7 @@ h1 {
     grid-template-areas: 
     "dealer gameboard player"
 }
-/* /Gird not apply with the player element  */
+
 
 @media only screen and (max-width: 768px) {
     .main {
@@ -88,7 +88,6 @@ h1 {
     color: #ffc300;
 }
 
-
 .player {
     display: flex;
     flex-direction: column;
@@ -114,6 +113,7 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: space-around; 
+    align-items: center;
 }
 
 .timer {
@@ -123,7 +123,7 @@ h1 {
     border-radius: 10px;
     box-shadow: 0 0 10px 5px rgba(187, 10, 10, 0.3);
     opacity: 0.8;
-    margin: 20px auto;
+    margin: 40px auto;
 }
 .stake-level {
     background-color: #e5e5e5;
@@ -178,23 +178,20 @@ button:disabled {
   cursor: not-allowed;
 }
 
-
 .card-table {
     background-image: url("pics/cardtable.png");
     width: 750px;
     height: 500px;
     border-radius: 30px;
     box-shadow: 0 0 10px 5px rgba(187, 10, 10, 0.3);
-
     display: grid;
-    
     grid-template-columns: 2fr 1fr 2fr;
     grid-template-rows: auto;
     justify-content: space-between;
     align-items: center;
     grid-template-areas: 
-      "dealer-hand  winner player-hand "
-      "dealer-sum pot-amount player-sum";
+        "dealer-hand  winner player-hand "
+        "dealer-sum pot-amount player-sum";
     text-align: center;
   }
 
@@ -231,3 +228,10 @@ span {
     right: 5px;
     padding: 5px;
 }
+
+.timer {
+    font-size: 36px;
+    text-align: center;
+    margin-top: 50px;
+    color: black;
+  }

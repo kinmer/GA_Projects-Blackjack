@@ -12,7 +12,6 @@ body {
     color: white;
 }
 
-
 h1 {
     font-style: normal;
     font-weight: 700;
@@ -24,6 +23,7 @@ article {
     font-size: 18px;
     font-weight: 300;
 }
+
 .main {
     margin: 20px auto;
     width: 900px;

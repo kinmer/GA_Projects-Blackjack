@@ -2,7 +2,6 @@
 const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 const suits = ["C", "D", "H", "S"];
 
-
 /*----- state variables -----*/
 let dealerAceCount = 0;
 let playerAceCount = 0; 
@@ -15,7 +14,7 @@ let dealerHandValue = 0;
 let playerHandvalue = 0;
 
 /*----- cached elements  -----*/
-const timer = document.getElementById('timer');
+const display = document.querySelector('.timer');
 const nextLevelStake = document.getElementById('next-level-stake')
 
 const hiddenCard = document.getElementById('hidden');
@@ -79,6 +78,26 @@ const resetHandsAndHandValue = () => {
     playerHand.innerHTML = '';
     dealerHand.innerHTML = '<img id="hidden" src="./cards/BACK.png">';
 }
+
+const startTimer = (duration, display) => {
+    let timer = duration, minutes, seconds;
+    setInterval(function () {
+      minutes = parseInt(timer / 60, 10);
+      seconds = parseInt(timer % 60, 10);
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      display.innerHTML = `${minutes} : ${seconds}`;
+      if (--timer < 0) {
+        timer = duration;
+      }
+    }, 1000);
+  }
+
+  const clockDown = () => {
+    let threeMinutes = 60 * 3;
+    startTimer(threeMinutes, display);
+  };
+
 /*----- process functions -----*/
 const originalDeck = () => {
     suits.forEach(function(suit) {
@@ -197,11 +216,9 @@ const checkFinalRound = () => {
     }
 }
 
-
 /*----- event listeners -----*/
 hint.addEventListener("click", hintCards);
 stand.addEventListener("click", standCards);
-
 
 /*----- game frame -----*/
 const startGame = () => {
@@ -214,4 +231,5 @@ const startGame = () => {
 }
 window.onload = function() {
     startGame();
+    clockDown();
 }
