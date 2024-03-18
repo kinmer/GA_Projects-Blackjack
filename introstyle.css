@@ -57,7 +57,7 @@ button {
     white-space: nowrap;
     will-change: box-shadow,transform;
     font-size: 18px;
-    margin: 50px 350px 
+    margin: 50px 370px 
 }
 
 button:focus {
@@ -74,3 +74,6 @@ button:active {
     transform: translateY(2px);
 }
 
+.input-container {
+    text-align: center;
+  }
