@@ -78,9 +78,8 @@ button:active {
     text-align: center;
   }
 
-
-  input {
+input {
     font-size: 16px; 
     padding: 10px;
     width: 160px; 
-  }
+}
