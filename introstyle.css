@@ -77,3 +77,10 @@ button:active {
 .input-container {
     text-align: center;
   }
+
+
+  input {
+    font-size: 16px; 
+    padding: 10px;
+    width: 160px; 
+  }
